@@ -3,9 +3,14 @@ This code produces the non-anonymized version of the CNN / Daily Mail summarizat
 # Instructions
 
 ## 1. Download data
+###CNN? Daily Mail
 Download and unzip the `stories` directories from [here](http://cs.nyu.edu/~kcho/DMQA/) for both CNN and Daily Mail. 
 
 **Warning:** These files contain a few (114, in a dataset of over 300,000) examples for which the article text is missing - see for example `cnn/stories/72aba2f58178f2d19d3fae89d5f3e9a4686bc4bb.story`. The [Tensorflow code](https://github.com/abisee/pointer-generator) has been updated to discard these examples.
+
+### Webis TL; DR
+Download the zip from [here](https://zenodo.org/record/1043504#.XUZ0OOhKjD4)
+
 
 ## 2. Download Stanford CoreNLP
 We will need Stanford CoreNLP to tokenize the data. Download it [here](https://stanfordnlp.github.io/CoreNLP/) and unzip it. Then add the following command to your bash_profile:
@@ -37,3 +42,6 @@ This script will do several things:
 * For each of the url lists `all_train.txt`, `all_val.txt` and `all_test.txt`, the corresponding tokenized stories are read from file, lowercased and written to serialized binary files `train.bin`, `val.bin` and `test.bin`. These will be placed in the newly-created `finished_files` directory. This may take some time.
 * Additionally, a `vocab` file is created from the training data. This is also placed in `finished_files`.
 * Lastly, `train.bin`, `val.bin` and `test.bin` will be split into chunks of 1000 examples per chunk. These chunked files will be saved in `finished_files/chunked` as e.g. `train_000.bin`, `train_001.bin`, ..., `train_287.bin`. This should take a few seconds. You can use either the single files or the chunked files as input to the Tensorflow code (see considerations [here](https://github.com/abisee/cnn-dailymail/issues/3)).
+
+For Webis Dataset, the input should be a filtered csv file for the required summary length consisting of 2 columns - Content and Summary.
+It will generate the .bin files for individual stories
